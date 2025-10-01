@@ -1,0 +1,48 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js" // Specifies that you want to generate Prisma Client code
+}
+
+
+model Master {
+  key   String  @unique
+  data Json
+}
+
+
+
+model admin_login_logs {
+  id           BigInt    @id @default(autoincrement())
+  admin_id     BigInt?
+  ip_address   String?   @db.VarChar
+  login_time   DateTime? @db.Timestamp(6)
+  created_at   DateTime  @db.Timestamp(6)
+  updated_at   DateTime  @db.Timestamp(6)
+  ip_address_2 String?   @db.VarChar
+  admins       admins?   @relation(fields: [admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rails_d4ea813624")
+
+  @@index([admin_id], map: "index_admin_login_logs_on_admin_id")
+}
+
+model admins {
+  id                     BigInt             @id @default(autoincrement())
+  email                  String             @unique(map: "index_admins_on_email") @default("") @db.VarChar
+  encrypted_password     String             @default("") @db.VarChar
+  name                   String?            @db.VarChar
+  reset_password_token   String?            @unique(map: "index_admins_on_reset_password_token") @db.VarChar
+  reset_password_sent_at DateTime?          @db.Timestamp(6)
+  remember_created_at    DateTime?          @db.Timestamp(6)
+  created_at             DateTime           @db.Timestamp(6)
+  updated_at             DateTime           @db.Timestamp(6)
+  player                 Int? //  enum player: ['super_admin', 'admin', 'manager', 'partner']
+  modifiable_id          Int?
+  modifiable_type        String?            @db.VarChar
+  keypass                String?            @db.VarChar
+  qr                     Boolean?           @default(false)
+  admin_login_logs       admin_login_logs[]
+}
+
