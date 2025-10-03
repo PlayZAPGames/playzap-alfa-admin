@@ -2,12 +2,14 @@ const TOKEN_KEY = 'jwt_token';
 
 const isProduction =  import.meta.env.VITE_ENV === 'production';
 
+console.log("Auth.js - isProduction:", isProduction);
+
+
 // Cookie configuration - UPDATE THIS WITH YOUR DOMAIN
 const COOKIE_CONFIG = {
-  domain: isProduction? '.playzap.com':'localhost', // Change to your actual domain
+  domain: isProduction? '.playzap.games':'localhost', // Change to your actual domain
   path: '/',
-  // secure: process.env.NODE_ENV === 'production',
-  secure: false,
+  secure: isProduction,
   sameSite: 'lax',
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 };
