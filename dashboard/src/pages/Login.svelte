@@ -7,7 +7,9 @@
 
   
 
-  let email = 'dev@piper.com', password = 'Admin@123', otp = '', error = '', qr = '', secret = '';
+  // let email = 'dev@piper.com'
+  //  password = 'Admin@123'
+  let email = '', password = '', otp = '', error = '', qr = '', secret = '';
   let awaitingOTP = false;
 
   async function handleLogin() {
