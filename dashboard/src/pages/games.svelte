@@ -1,23 +1,20 @@
 <script>
   import BOWSIcon from '../assets/BOWS_icon.png';
   import survivalIcon from '../assets/coming-soon.png';
-  const isLocal = import.meta.env.DEV;
+  const isProduction =  import.meta.env.VITE_ENV === 'production';
 
-  console.log("Environment:", import.meta.env);
-  const finalcall = isLocal ? "http://localhost:2028" : "https://dash-bow.playzap.games/"
-  console.log("finalcall:", finalcall);
   
 
   let games = [
     { 
       name: "Battle of Worms", 
-      url: isLocal ? "http://localhost:2028" : "https://dash-bow.playzap.games/", 
+      url: isProduction ? "https://dash-bow.playzap.games/" : "http://localhost:2028", 
       logo: BOWSIcon,
       disabled: false
     },
     { 
       name: "Survival", 
-      url: isLocal ? "/" : "/", 
+      url: isProduction ? "/" : "/", 
       logo: survivalIcon,
       disabled: true   // 👈 disable this one
     }
