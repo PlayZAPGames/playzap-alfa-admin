@@ -1,8 +1,10 @@
 const TOKEN_KEY = 'jwt_token';
 
+  const isLocal = import.meta.env.DEV;
+
 // Cookie configuration - UPDATE THIS WITH YOUR DOMAIN
 const COOKIE_CONFIG = {
-  domain: 'localhost', // Change to your actual domain
+  domain: isLocal? 'localhost':'.playzap.com', // Change to your actual domain
   path: '/',
   // secure: process.env.NODE_ENV === 'production',
   secure: false,
