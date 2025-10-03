@@ -10,10 +10,16 @@ import adminRoutes from "./routes/adminRoutes/index.js";
 import { insertDefaults } from "./utility/defaultData.js";
 const PORT = process.env.PORT;
 
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? ["https://admin.playzap.games"]  // Production origin
+  : ["http://localhost:2030"];       // Development origin
+
+
+
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: ["https://admin.playzap.games"], 
+  origin: allowedOrigins, 
   credentials:true
 }));
 app.use(bodyParser.urlencoded({ extended: false }));

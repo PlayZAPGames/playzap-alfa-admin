@@ -1,12 +1,27 @@
 <script>
+  import BOWSIcon from '../assets/BOWS_icon.png';
+  import survivalIcon from '../assets/coming-soon.png';
+  const isLocal = import.meta.env.DEV;
+
   let games = [
-    { name: "Battle of Worms", url: "http://localhost:2028", logo: "/logos/game1.png" },
-    { name: "Game Two", url: "https://game2-admin.example.com", logo: "/logos/game2.png" },
-    { name: "Game Three", url: "https://game3-admin.example.com", logo: "/logos/game3.png" }
+    { 
+      name: "Battle of Worms", 
+      url: isLocal ? "http://localhost:2028" : "https://bows-admin.yourdomain.com", 
+      logo: BOWSIcon,
+      disabled: false
+    },
+    { 
+      name: "Survival", 
+      url: isLocal ? "/" : "/", 
+      logo: survivalIcon,
+      disabled: true   // 👈 disable this one
+    }
   ];
 
-  function goToGame(url) {
-    window.location.href = url;
+  function goToGame(game) {
+    if (!game.disabled) {
+      window.location.href = game.url;
+    }
   }
 </script>
 
@@ -14,9 +29,15 @@
   <h1 class="title">Select a Game</h1>
   <div class="grid">
     {#each games as game}
-      <div class="card" on:click={() => goToGame(game.url)}>
+      <div 
+        class="card {game.disabled ? 'disabled' : ''}" 
+        on:click={() => goToGame(game)}
+      >
         <img src={game.logo} alt={game.name} />
         <h2>{game.name}</h2>
+        {#if game.disabled}
+          <p class="coming-soon">Coming Soon</p>
+        {/if}
       </div>
     {/each}
   </div>
@@ -55,5 +76,18 @@
   .card h2 {
     font-size: 1.2rem;
     margin: 0;
+  }
+
+  /* Disabled state */
+  .card.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none; /* stops clicks */
+  }
+  .coming-soon {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #d9534f;
   }
 </style>
