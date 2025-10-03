@@ -4,7 +4,7 @@ import "dotenv/config.js";
 import { PlayerRole } from "./enums.js";
 
 // Secret key for JWT (should be kept secret and not hard-coded)
-const jwtSecret = process.env.JWT_SECRET_KEY;
+const jwtSecret = process.env.JWT_SECRET;
 import { makeResponse } from "../helpers/index.js";
 
 async function UserMiddleware(req, res, next) {
