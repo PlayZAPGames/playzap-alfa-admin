@@ -6,7 +6,7 @@
   let games = [
     { 
       name: "Battle of Worms", 
-      url: isLocal ? "http://localhost:2028" : "https://bows-admin.yourdomain.com", 
+      url: isLocal ? "http://localhost:2028" : "https://dash-bow.playzap.games/", 
       logo: BOWSIcon,
       disabled: false
     },
