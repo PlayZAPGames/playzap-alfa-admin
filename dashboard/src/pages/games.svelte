@@ -3,6 +3,11 @@
   import survivalIcon from '../assets/coming-soon.png';
   const isLocal = import.meta.env.DEV;
 
+  console.log("Environment:", import.meta.env);
+  const finalcall = isLocal ? "http://localhost:2028" : "https://dash-bow.playzap.games/"
+  console.log("finalcall:", finalcall);
+  
+
   let games = [
     { 
       name: "Battle of Worms", 
