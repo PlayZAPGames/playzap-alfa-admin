@@ -11,7 +11,7 @@ const COOKIE_CONFIG = {
   path: '/',
   secure: isProduction,
   sameSite: 'lax',
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  maxAge: 1 * 60 * 60 * 1000 // 1 hour
 };
 
 // LocalStorage functions (keep existing)
@@ -19,8 +19,30 @@ export function saveToken(token) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
+export function isTokenExpired(token) {
+  if (!token) return true;
+  
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const currentTime = Date.now() / 1000;
+    return payload.exp < currentTime;
+  } catch (error) {
+    return true;
+  }
+}
+
 export function getToken() {
-  return localStorage.getItem(TOKEN_KEY);
+
+  const token = localStorage.getItem(TOKEN_KEY);
+
+    if (!token || isTokenExpired(token)) {
+    
+    return null;
+  }
+  
+  return token;
+
+  // return localStorage.getItem(TOKEN_KEY);
 }
 
 export function clearToken() {

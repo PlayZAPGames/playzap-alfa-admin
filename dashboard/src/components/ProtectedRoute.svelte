@@ -18,11 +18,9 @@
 
  $: {
 
-    //  const userRole = RoleNames[3];
      const userRole = RoleNames[$user?.player];
-
-
-    console.log("$user", userRole);
+    // console.log("$user", userRole);
+    // console.log("$isAuthenticated", $isAuthenticated);
     
     if (!$isAuthenticated || !$user) {
 
